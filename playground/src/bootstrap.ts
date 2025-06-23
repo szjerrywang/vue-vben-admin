@@ -7,6 +7,7 @@ import { initStores } from '@vben/stores';
 import '@vben/styles';
 import '@vben/styles/antd';
 
+import { vueKeycloak } from '@josempgon/vue-keycloak';
 import { useTitle } from '@vueuse/core';
 
 import { $t, setupI18n } from '#/locales';
@@ -15,6 +16,18 @@ import { router } from '#/router';
 import { initComponentAdapter } from './adapter/component';
 import { initSetupVbenForm } from './adapter/form';
 import App from './app.vue';
+
+// function checkLogin() {
+//   const url = `${window.location}`;
+
+//   const { keycloak, isAuthenticated } = useKeycloak();
+//   if (isAuthenticated.value) {
+//     // console.log('User is authenticated');
+//   } else {
+//     // console.log('User is not authenticated');
+//     keycloak.value?.login({ redirectUri: url });
+//   }
+// }
 
 async function bootstrap(namespace: string) {
   // 初始化组件适配器
@@ -33,6 +46,25 @@ async function bootstrap(namespace: string) {
   // });
 
   const app = createApp(App);
+
+  await vueKeycloak.install(app, () => {
+    const silentCheckSsoRedirectUri = `${window.location.origin}/silent-check-sso.html`;
+
+    return {
+      config: {
+        url: 'https://lhapp.dev/auth',
+        realm: 'external',
+        clientId: 'external-client-2',
+      },
+
+      initOptions: {
+        onLoad: 'login-required',
+        silentCheckSsoRedirectUri,
+      },
+    };
+  });
+
+  // checkLogin();
 
   // 注册v-loading指令
   registerLoadingDirective(app, {

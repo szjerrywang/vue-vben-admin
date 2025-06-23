@@ -51,7 +51,8 @@
     "json-bigint": "catalog:",
     "pinia": "catalog:",
     "vue": "catalog:",
-    "vue-router": "catalog:"
+    "vue-router": "catalog:",
+    "@josempgon/vue-keycloak": "catalog:"
   },
   "devDependencies": {
     "@types/json-bigint": "catalog:"

@@ -45,6 +45,9 @@ catalogs:
     '@intlify/unplugin-vue-i18n':
       specifier: ^6.0.8
       version: 6.0.8
+    '@josempgon/vue-keycloak':
+      specifier: ^3.3.1
+      version: 3.3.1
     '@jspm/generator':
       specifier: ^2.5.1
       version: 2.5.1
@@ -1826,6 +1829,9 @@ importers:
 
   playground:
     dependencies:
+      '@josempgon/vue-keycloak':
+        specifier: 'catalog:'
+        version: 3.3.1(keycloak-js@26.2.0)(vue@3.5.13(typescript@5.8.3))
       '@tanstack/vue-query':
         specifier: 'catalog:'
         version: 5.75.1(vue@3.5.13(typescript@5.8.3))
@@ -3660,6 +3666,12 @@ packages:
   '@isaacs/fs-minipass@4.0.1':
     resolution: {integrity: sha512-wgm9Ehl2jpeqP3zw/7mo3kRHFp5MEDhqAdwy1fTGkHAwnkGOVsgpvQhL8B5n1qlb01jV3n/bI0ZfZp5lWA1k4w==}
     engines: {node: '>=18.0.0'}
+
+  '@josempgon/vue-keycloak@3.3.1':
+    resolution: {integrity: sha512-hYZkwQBjoLZ6kOoXkMzvQv1NkSZrYfH1RtHNVLoPrNIcXqBZIdJ1Kely/deZWxueZ5ujmlbWDXsasZxhNkXIRg==}
+    peerDependencies:
+      keycloak-js: 18 - 26
+      vue: ^3.5.13
 
   '@jridgewell/gen-mapping@0.3.8':
     resolution: {integrity: sha512-imAbBGkb+ebQyxKgzv5Hu2nmROxoDOXHh80evxdoXNOrvAnVx7zimzc1Oo5h9RlfV4vPXaE2iM5pOFbvOCClWA==}
@@ -7723,6 +7735,9 @@ packages:
   jwt-decode@4.0.0:
     resolution: {integrity: sha512-+KJGIyHgkGuIq3IEBNftfhW/LfWhXUIY6OmyVWjliu5KH1y0fw7VQ8YndE2O4qZdMSd9SqbnC8GOcZEy0Om7sA==}
     engines: {node: '>=18'}
+
+  keycloak-js@26.2.0:
+    resolution: {integrity: sha512-CrFcXTN+d6J0V/1v3Zpioys6qHNWE6yUzVVIsCUAmFn9H14GZ0vuYod+lt+SSpMgWGPuneDZBSGBAeLBFuqjsw==}
 
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
@@ -13257,6 +13272,11 @@ snapshots:
     dependencies:
       minipass: 7.1.2
 
+  '@josempgon/vue-keycloak@3.3.1(keycloak-js@26.2.0)(vue@3.5.13(typescript@5.8.3))':
+    dependencies:
+      keycloak-js: 26.2.0
+      vue: 3.5.13(typescript@5.8.3)
+
   '@jridgewell/gen-mapping@0.3.8':
     dependencies:
       '@jridgewell/set-array': 1.2.1
@@ -17867,6 +17887,8 @@ snapshots:
       safe-buffer: 5.2.1
 
   jwt-decode@4.0.0: {}
+
+  keycloak-js@26.2.0: {}
 
   keyv@4.5.4:
     dependencies:

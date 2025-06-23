@@ -1,7 +1,4 @@
 <script lang="ts" setup>
-import type { AnalysisOverviewItem } from '@vben/common-ui';
-import type { TabOption } from '@vben/types';
-
 import {
   AnalysisChartCard,
   AnalysisChartsTabs,
@@ -14,11 +11,45 @@ import {
   SvgDownloadIcon,
 } from '@vben/icons';
 
+import { useKeycloak } from '@josempgon/vue-keycloak';
+
 import AnalyticsTrends from './analytics-trends.vue';
 import AnalyticsVisitsData from './analytics-visits-data.vue';
 import AnalyticsVisitsSales from './analytics-visits-sales.vue';
 import AnalyticsVisitsSource from './analytics-visits-source.vue';
 import AnalyticsVisits from './analytics-visits.vue';
+
+const {
+  // Reactive State
+  // keycloak,
+  isAuthenticated,
+  // isPending,
+  // hasFailed,
+  // error,
+  // token,
+  // decodedToken,
+  // username,
+  // userId,
+  // roles,
+  // resourceRoles,
+
+  // // Functions
+  // hasRoles,
+  // hasResourceRoles,
+} = useKeycloak();
+
+// function logout() {
+//   keycloak.value?.logout();
+// }
+// function login() {
+//   if (isAuthenticated.value) {
+//     return;
+//   }
+//   const redirectUri = window.location.href;
+//   keycloak.value?.login({
+//     redirectUri,
+//   });
+// }
 
 const overviewItems: AnalysisOverviewItem[] = [
   {
@@ -86,5 +117,6 @@ const chartTabs: TabOption[] = [
         <AnalyticsVisitsSales />
       </AnalysisChartCard>
     </div>
+    <div>{{ isAuthenticated }}</div>
   </div>
 </template>
