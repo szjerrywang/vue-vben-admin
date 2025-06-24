@@ -3,11 +3,11 @@ import { createApp, watchEffect } from 'vue';
 import { registerAccessDirective } from '@vben/access';
 import { registerLoadingDirective } from '@vben/common-ui';
 import { preferences } from '@vben/preferences';
-import { initStores } from '@vben/stores';
+import { initStores, resetAllStores } from '@vben/stores';
 import '@vben/styles';
 import '@vben/styles/antd';
 
-import { vueKeycloak } from '@josempgon/vue-keycloak';
+import { useKeycloak, vueKeycloak } from '@josempgon/vue-keycloak';
 import { useTitle } from '@vueuse/core';
 
 import { $t, setupI18n } from '#/locales';
@@ -17,17 +17,18 @@ import { initComponentAdapter } from './adapter/component';
 import { initSetupVbenForm } from './adapter/form';
 import App from './app.vue';
 
-// function checkLogin() {
-//   const url = `${window.location}`;
+function checkLogin() {
+  const url = `${window.location.origin}`;
 
-//   const { keycloak, isAuthenticated } = useKeycloak();
-//   if (isAuthenticated.value) {
-//     // console.log('User is authenticated');
-//   } else {
-//     // console.log('User is not authenticated');
-//     keycloak.value?.login({ redirectUri: url });
-//   }
-// }
+  const { keycloak, isAuthenticated } = useKeycloak();
+
+  if (isAuthenticated.value) {
+    // console.log('User is authenticated');
+  } else {
+    // console.log('User is not authenticated');
+    keycloak.value?.login({ redirectUri: url });
+  }
+}
 
 async function bootstrap(namespace: string) {
   // 初始化组件适配器
@@ -64,7 +65,7 @@ async function bootstrap(namespace: string) {
     };
   });
 
-  // checkLogin();
+  checkLogin();
 
   // 注册v-loading指令
   registerLoadingDirective(app, {
@@ -77,6 +78,7 @@ async function bootstrap(namespace: string) {
 
   // 配置 pinia-tore
   await initStores(app, { namespace });
+  await resetAllStores();
 
   // 安装权限指令
   registerAccessDirective(app);

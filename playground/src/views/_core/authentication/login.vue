@@ -109,16 +109,18 @@ const loginRef =
   useTemplateRef<InstanceType<typeof AuthenticationLogin>>('loginRef');
 
 async function onSubmit(params: Recordable<any>) {
-  authStore.authLogin(params).catch(() => {
-    // 登陆失败，刷新验证码的演示
-    const formApi = loginRef.value?.getFormApi();
-    // 重置验证码组件的值
-    formApi?.setFieldValue('captcha', false, false);
-    // 使用表单API获取验证码组件实例，并调用其resume方法来重置验证码
-    formApi
-      ?.getFieldComponentRef<InstanceType<typeof SliderCaptcha>>('captcha')
-      ?.resume();
-  });
+  // authStore.authLogin(params).catch(() => {
+  //   // 登陆失败，刷新验证码的演示
+  //   const formApi = loginRef.value?.getFormApi();
+  //   // 重置验证码组件的值
+  //   formApi?.setFieldValue('captcha', false, false);
+  //   // 使用表单API获取验证码组件实例，并调用其resume方法来重置验证码
+  //   formApi
+  //     ?.getFieldComponentRef<InstanceType<typeof SliderCaptcha>>('captcha')
+  //     ?.resume();
+  // });
+  // eslint-disable-next-line no-console
+  console.log(params);
 }
 </script>
 

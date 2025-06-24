@@ -60,6 +60,8 @@ function setupAccessGuard(router: Router) {
       return true;
     }
 
+    await authStore.initAuthStore();
+
     // accessToken 检查
     if (!accessStore.accessToken) {
       // 明确声明忽略权限访问权限，则可以访问
@@ -67,20 +69,29 @@ function setupAccessGuard(router: Router) {
         return true;
       }
 
+      console.error("no accessToken, can't access this page", to);
+      // 如果没有登录，则跳转到登录页面
+      // const route = router.resolve(to);
+      // const redirectUri = new URL(route.href, window.location.origin).href;
+
+      // const { keycloak } = useKeycloak();
+      // await keycloak.value?.login({ redirectUri });
       // 没有访问权限，跳转登录页面
-      if (to.fullPath !== LOGIN_PATH) {
-        return {
-          path: LOGIN_PATH,
-          // 如不需要，直接删除 query
-          query:
-            to.fullPath === preferences.app.defaultHomePath
-              ? {}
-              : { redirect: encodeURIComponent(to.fullPath) },
-          // 携带当前跳转的页面，登录后重新跳转该页面
-          replace: true,
-        };
-      }
-      return to;
+      // if (to.fullPath !== LOGIN_PATH) {
+      //   return {
+      //     path: LOGIN_PATH,
+      //     // 如不需要，直接删除 query
+      //     query:
+      //       to.fullPath === preferences.app.defaultHomePath
+      //         ? {}
+      //         : { redirect: encodeURIComponent(to.fullPath) },
+      //     // 携带当前跳转的页面，登录后重新跳转该页面
+      //     replace: true,
+      //   };
+      // }
+      // return to;
+
+      return false;
     }
 
     // 是否已经生成过动态路由
@@ -91,7 +102,7 @@ function setupAccessGuard(router: Router) {
     // 生成路由表
     // 当前登录用户拥有的角色标识列表
     const userInfo = userStore.userInfo || (await authStore.fetchUserInfo());
-    const userRoles = userInfo.roles ?? [];
+    const userRoles = userInfo?.roles ?? [];
 
     // 生成菜单和路由
     const { accessibleMenus, accessibleRoutes } = await generateAccess({
@@ -110,10 +121,10 @@ function setupAccessGuard(router: Router) {
       redirectPath = from.query.redirect as string;
     } else if (to.path === preferences.app.defaultHomePath) {
       redirectPath = preferences.app.defaultHomePath;
-    } else if (userInfo.homePath && to.path === userInfo.homePath) {
-      redirectPath = userInfo.homePath;
+    } else if (userInfo?.homePath && to.path === userInfo?.homePath) {
+      redirectPath = userInfo?.homePath;
     } else {
-      redirectPath = to.fullPath;
+      redirectPath = to.path;
     }
     return {
       ...router.resolve(decodeURIComponent(redirectPath)),

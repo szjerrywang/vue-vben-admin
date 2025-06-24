@@ -3,7 +3,7 @@ import type { NotificationItem } from '@vben/layouts';
 
 import { computed, onBeforeMount, ref, watch } from 'vue';
 
-import { AuthenticationLoginExpiredModal } from '@vben/common-ui';
+// import { AuthenticationLoginExpiredModal } from '@vben/common-ui';
 import { VBEN_DOC_URL, VBEN_GITHUB_URL } from '@vben/constants';
 import { useWatermark } from '@vben/hooks';
 import { BookOpenText, CircleHelp, MdiGithub } from '@vben/icons';
@@ -14,12 +14,12 @@ import {
   UserDropdown,
 } from '@vben/layouts';
 import { preferences } from '@vben/preferences';
-import { useAccessStore, useTabbarStore, useUserStore } from '@vben/stores';
+import { useTabbarStore, useUserStore } from '@vben/stores';
 import { openWindow } from '@vben/utils';
 
 import { $t } from '#/locales';
 import { useAuthStore } from '#/store';
-import LoginForm from '#/views/_core/authentication/login.vue';
+// import LoginForm from '#/views/_core/authentication/login.vue';
 
 const { setMenuList } = useTabbarStore();
 setMenuList([
@@ -67,7 +67,7 @@ const notifications = ref<NotificationItem[]>([
 
 const userStore = useUserStore();
 const authStore = useAuthStore();
-const accessStore = useAccessStore();
+// const accessStore = useAccessStore();
 const { destroyWatermark, updateWatermark } = useWatermark();
 const showDot = computed(() =>
   notifications.value.some((item) => !item.isRead),
@@ -108,7 +108,7 @@ const avatar = computed(() => {
 });
 
 async function handleLogout() {
-  await authStore.logout(false);
+  await authStore.logout(window.location.origin);
 }
 
 function handleNoticeClear() {
@@ -154,7 +154,7 @@ onBeforeMount(() => {
         :avatar
         :menus
         :text="userStore.userInfo?.realName"
-        description="ann.vben@gmail.com"
+        description="username"
         tag-text="Pro"
         trigger="both"
         @logout="handleLogout"
@@ -169,12 +169,12 @@ onBeforeMount(() => {
       />
     </template>
     <template #extra>
-      <AuthenticationLoginExpiredModal
+      <!-- <AuthenticationLoginExpiredModal
         v-model:open="accessStore.loginExpired"
         :avatar
       >
         <LoginForm />
-      </AuthenticationLoginExpiredModal>
+      </AuthenticationLoginExpiredModal> -->
     </template>
     <template #lock-screen>
       <LockScreen :avatar @to-login="handleLogout" />

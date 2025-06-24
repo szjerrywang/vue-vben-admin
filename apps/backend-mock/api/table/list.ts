@@ -1,6 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { verifyAccessToken } from '~/utils/jwt-utils';
-import { unAuthorizedResponse, usePageResponseSuccess } from '~/utils/response';
+import { usePageResponseSuccess } from '~/utils/response';
 
 function generateMockDataList(count: number) {
   const dataList = [];
@@ -36,10 +35,10 @@ function generateMockDataList(count: number) {
 const mockData = generateMockDataList(100);
 
 export default eventHandler(async (event) => {
-  const userinfo = verifyAccessToken(event);
-  if (!userinfo) {
-    return unAuthorizedResponse(event);
-  }
+  // const userinfo = verifyAccessToken(event);
+  // if (!userinfo) {
+  //   return unAuthorizedResponse(event);
+  // }
 
   await sleep(600);
 

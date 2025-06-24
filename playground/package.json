@@ -1,18 +1,18 @@
 {
-  "name": "@vben/playground",
-  "version": "5.5.7",
-  "homepage": "https://vben.pro",
-  "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
+  "name": "@lhapp/demo",
+  "version": "1.0.0",
+  "homepage": "https://lhrtt.com",
+  "bugs": "https://lhrtt.com",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
+    "url": "git+https://github.com/szjerrywang",
     "directory": "playground"
   },
-  "license": "MIT",
+  "license": "All rights reserved. Lhrtt.com",
   "author": {
-    "name": "vben",
-    "email": "ann.vben@gmail.com",
-    "url": "https://github.com/anncwb"
+    "name": "Jerry Wang",
+    "email": "szjerrywang@163.com",
+    "url": "https://github.com/szjerrywang"
   },
   "type": "module",
   "scripts": {
@@ -29,6 +29,7 @@
     "#/*": "./src/*"
   },
   "dependencies": {
+    "@josempgon/vue-keycloak": "catalog:",
     "@tanstack/vue-query": "catalog:",
     "@vben-core/menu-ui": "workspace:*",
     "@vben/access": "workspace:*",
@@ -51,8 +52,7 @@
     "json-bigint": "catalog:",
     "pinia": "catalog:",
     "vue": "catalog:",
-    "vue-router": "catalog:",
-    "@josempgon/vue-keycloak": "catalog:"
+    "vue-router": "catalog:"
   },
   "devDependencies": {
     "@types/json-bigint": "catalog:"
